@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'handbook/css/handbook.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+    <aside>
+        <img src="{% static 'handbook/img/Book-icon.png' %}" alt="Лого">
+        <span class="logo">HandBooks</span>
+        <ul>
+            <a href="/admin"><li><i class="fas fa-user-lock"></i> Админ панель</li></a>
+            <a href="{% url 'home' %}"><li><i class="fas fa-map-signs"></i> Список справочников</li></a>
+            <a href="{% url 'elements' %}"><li><i class="fab fa-elementor"></i> Список элементов</li></a>
+            <a href="{% url 'by_elements_basic' %}"><li><i class="fas fa-search"></i> Элементы по справочникам</li></a>
+            <a href="{% url 'handbooks_bydate_basic' %}"><li><i class="far fa-clock"></i> Справочники по датам</li></a>
+        </ul>
+    </aside>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

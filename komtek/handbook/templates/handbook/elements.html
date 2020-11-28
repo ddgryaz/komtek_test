@@ -1,0 +1,21 @@
+{% extends 'handbook/basic.html' %}
+
+{% block title %}List Elements{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Элементы</h1>
+    <p>На этой странице будут показаны все созданные элементы.</p>
+    {% if list_elements %}
+            {% for el in list_elements %}
+                <div class="alert alert-warning">
+                    <p>Справочник: {{ el.handbook }}</p>
+                    <p>Код элемента: {{ el.code }}</p>
+                    <p>Значение элемента: {{ el.value }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Упс, нет созданных Элементов! Перейдите в админ панель для создания!</p>
+        {% endif %}
+            </div>
+{% endblock %}

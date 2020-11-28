@@ -1,0 +1,12 @@
+{% extends 'handbook/basic.html' %}
+
+{% block title %}Справочник {{ current_handbooks.title }}{% endblock %}
+{% block content %}
+<div class="features">
+    <h1>Элементы в справочнике: {{ current_handbooks.title }}</h1>
+    {% for el in elements %}
+    <p>Значение элемента: {{ el.value }} | Код элемента: {{ el.code }}</p>
+    {% endfor %}
+
+</div>
+{% endblock %}

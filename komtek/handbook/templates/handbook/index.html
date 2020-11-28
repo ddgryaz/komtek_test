@@ -1,0 +1,25 @@
+{% extends 'handbook/basic.html' %}
+
+{% block title %}Handbooks{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Справочники</h1>
+    <p>Создание справочников в ходе тестового задания от компании КОМТЕК.</p>
+    <p>На этой странице будут показаны все созданные справочники.</p>
+    {% if list_handbooks %}
+        {% for hb in list_handbooks %}
+            <div class="alert alert-warning">
+                <h3>{{ hb.title }}</h3>
+                <p>{{ hb.short_title }}</p>
+                <p>{{ hb.description }}</p>
+                <p>Версия: {{ hb.version }}</p>
+                <p>Дата начала действия справочника: {{ hb.date }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Упс, нет созданных справочников! Перейдите в админ панель для создания!</p>
+    {% endif %}
+
+        </div>
+{% endblock %}
