@@ -7,19 +7,32 @@
     <h1>Справочники</h1>
     <p>Создание справочников в ходе тестового задания от компании КОМТЕК.</p>
     <p>На этой странице будут показаны все созданные справочники.</p>
-    {% if list_handbooks %}
-        {% for hb in list_handbooks %}
+    {% if posts %}
+        {% for post in posts %}
             <div class="alert alert-warning">
-                <h3>{{ hb.title }}</h3>
-                <p>{{ hb.short_title }}</p>
-                <p>{{ hb.description }}</p>
-                <p>Версия: {{ hb.version }}</p>
-                <p>Дата начала действия справочника: {{ hb.date }}</p>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.short_title }}</p>
+                <p>{{ post.description }}</p>
+                <p>Версия: {{ post.version }}</p>
+                <p>Дата начала действия справочника: {{ post.date }}</p>
             </div>
         {% endfor %}
     {% else %}
         <p>Упс, нет созданных справочников! Перейдите в админ панель для создания!</p>
     {% endif %}
+    <div id="pages" align="center">
 
-        </div>
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ posts.number }} из {{ posts.paginator.num_pages }}.
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">Следующая</a>
+            {% endif %}
+    </div>
+</div>
 {% endblock %}

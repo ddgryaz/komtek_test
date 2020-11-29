@@ -6,16 +6,30 @@
 <div class="features">
     <h1>Элементы</h1>
     <p>На этой странице будут показаны все созданные элементы.</p>
-    {% if list_elements %}
-            {% for el in list_elements %}
+    {% if posts %}
+            {% for post in posts %}
                 <div class="alert alert-warning">
-                    <p>Справочник: {{ el.handbook }}</p>
-                    <p>Код элемента: {{ el.code }}</p>
-                    <p>Значение элемента: {{ el.value }}</p>
+                    <p>Справочник: {{ post.handbook }}</p>
+                    <p>Код элемента: {{ post.code }}</p>
+                    <p>Значение элемента: {{ post.value }}</p>
                 </div>
             {% endfor %}
-        {% else %}
-            <p>Упс, нет созданных Элементов! Перейдите в админ панель для создания!</p>
-        {% endif %}
-            </div>
+    {% else %}
+        <p>Упс, нет созданных Элементов! Перейдите в админ панель для создания!</p>
+    {% endif %}
+    <div id="pages" align="center">
+
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ posts.number }} из {{ posts.paginator.num_pages }}.
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">Следующая</a>
+            {% endif %}
+    </div>
+</div>
 {% endblock %}

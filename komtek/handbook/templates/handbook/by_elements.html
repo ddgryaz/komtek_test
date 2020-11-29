@@ -1,12 +1,36 @@
 {% extends 'handbook/basic.html' %}
 
 {% block title %}Справочник {{ current_handbooks.title }}{% endblock %}
+
 {% block content %}
 <div class="features">
     <h1>Элементы в справочнике: {{ current_handbooks.title }}</h1>
-    {% for el in elements %}
-    <p>Значение элемента: {{ el.value }} | Код элемента: {{ el.code }}</p>
-    {% endfor %}
+    {% if posts %}
+        {% for post in posts %}
+        <p>Значение элемента: {{ post.value }} | Код элемента: {{ post.code }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Упс, нет созданных Элементов! Перейдите в админ панель для создания!</p>
+    {% endif %}
+    <div id="pages" align="center">
+
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">Предыдущая</a>
+            {% endif %}
+
+            <span class="current">
+                Страница {{ posts.number }} из {{ posts.paginator.num_pages }}.
+            </span>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">Следующая</a>
+            {% endif %}
+
+    </div>
+    <div align="center">
+        <br />
+        <a href="{% url 'by_elements_basic' %}" class="btn btn-warning">К выбору справочников</a>
+    </div>
 
 </div>
 {% endblock %}

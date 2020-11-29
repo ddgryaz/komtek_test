@@ -1,17 +1,34 @@
 from django.shortcuts import render
 from .models import Handbook, Element
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 # Вьюшка на главную страницу с списком всех справочников
 def index(request):
     list_handbooks = Handbook.objects.all()
-    return render(request, 'handbook/index.html', {'list_handbooks': list_handbooks})
+    paginator = Paginator(list_handbooks, 2)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'handbook/index.html', {'posts': posts})
 
 
 # Вьюшка на страницу с списком всех элементов
 def elements(request):
     list_elements = Element.objects.all()
-    return render(request, 'handbook/elements.html', {'list_elements': list_elements})
+    paginator = Paginator(list_elements, 3)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'handbook/elements.html', {'posts': posts})
 
 
 # Вьюшка на динамические страницы соответствующие справочникам
@@ -19,10 +36,19 @@ def by_elements(request, element_id):
     elements = Element.objects.filter(handbook=element_id)
     handbooks = Handbook.objects.all()
     current_handbooks = Handbook.objects.get(pk=element_id)
+    paginator = Paginator(elements, 10)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {
         'elements': elements,
         'handbooks': handbooks,
         'current_handbooks': current_handbooks,
+        'posts': posts,
     }
     return render(request, 'handbook/by_elements.html', context)
 
