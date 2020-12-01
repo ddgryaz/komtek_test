@@ -5,7 +5,7 @@
     <h1>Элементы по справочникам</h1>
     <p>Выберите справочник, чтобы отобразились его элементы.</p>
     {% for hb in handbooks %}
-    <p><a href="/by_elements/{{ hb.pk }}/" class="btn btn-warning">{{ hb.title }}<br/></a></p>
+    <p><a href="/by_elements/{{ hb.pk }}/" class="btn btn-warning">{{ hb.title }} | ver: {{ hb.version }}<br/></a></p>
     {% endfor %}
 
 </div>
